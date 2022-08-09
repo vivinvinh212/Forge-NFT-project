@@ -7,6 +7,11 @@ import "../lib/openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721UR
 import "../lib/openzeppelin-contracts/contracts/utils/Counters.sol";
 import "../lib/openzeppelin-contracts/contracts/access/Ownable.sol";
 
+/**
+ * @title Contract for Cutie NFT
+ * @author vivinvinh212
+ * @notice Contract allowing user to mint Cutie ERC-721 compliant NFT
+ */
 contract Cutie is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
 
@@ -15,12 +20,17 @@ contract Cutie is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     string constant TOKEN_URI =
         "ipfs://QmZvBFsTFhfR75bEVitGVHcqCCkR5WgYmgHVNihH5nmejN";
 
-    // Define naximum supply, mint price and maximum mint per transactions of NFT
+    // Define maximum supply, mint price and maximum mint per transactions of NFT
     uint256 public constant MAX_SUPPLY = 100;
     uint public constant mintPrice = 0.01 ether;
-    bool public deployed = false;
     uint constant maxPerTransaction = 5;
 
+    //Track deployment status
+    bool public deployed = false;
+
+    /**
+     * @notice Constructor for generating ERC-721 Cutie token
+     */
     constructor() ERC721("Cutie", "CUTE") {
         deployed = true;
     }
