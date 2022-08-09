@@ -929,8 +929,8 @@
       }
     },
     "test/Cutie.t.sol": {
-      "lastModificationDate": 1660039676531,
-      "contentHash": "f529e3cc5e12fd4ead1bd5feb2ca85a1",
+      "lastModificationDate": 1660043664900,
+      "contentHash": "1d3fa825d977560dcd25171de20466da",
       "sourceName": "test/Cutie.t.sol",
       "solcConfig": {
         "settings": {

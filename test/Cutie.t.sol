@@ -16,20 +16,21 @@ contract CutieTest is Test {
         vm.stopPrank();
     }
 
-    function testMaxSupply() public {
-        assertEq(cutie.MAX_SUPPLY(), 100);
-    }
+    // 1. The contract is deployed successfully. 5 points
 
-    function testMint() public {
-        vm.startPrank(alice);
-        vm.deal(alice, 1 ether);
-        cutie.safeMint{value: 0.01 ether}(1);
+    // 2. The deployed address is set to the owner. 5 points
+
+    // 3. No more than 100 tokens can be minted. 10 points
+    function testFailExceedMaxSupply() public {
+        vm.startPrank(bob);
+        vm.deal(bob, 1.5 ether);
+        cutie.safeMint{value: 1.01 ether}(101);
         vm.stopPrank();
-        assertEq(cutie.balanceOf(alice), 1);
+        assertEq(cutie.balanceOf(bob), 101);
     }
 
-    //test for unsuccesfull mint due to insuffucient funds//
-    function testFailMint() public {
+    // 4. A token can not be minted if less value than cost (0.01) is provided. 10 points
+    function testFailInsufficientFund() public {
         vm.startPrank(bob);
         vm.deal(bob, 0.005 ether);
         cutie.safeMint{value: 0.01 ether}(1);
@@ -37,6 +38,16 @@ contract CutieTest is Test {
         assertEq(cutie.balanceOf(bob), 1);
     }
 
+    // 5. No more than five tokens can be minted in a single transaction. 10 points
+    function testFailExceedMaxPerTrans() public {
+        vm.startPrank(bob);
+        vm.deal(bob, 1 ether);
+        cutie.safeMint{value: 0.06 ether}(6);
+        vm.stopPrank();
+        assertEq(cutie.balanceOf(bob), 6);
+    }
+
+    // 6. The owner can withdraw the funds collected from the sale. 10 points
     function testWithdrawFromOwner() public {
         // switch to a diffent acount and mint a nft to have funds in contrat//
         vm.startPrank(bob);
@@ -48,5 +59,33 @@ contract CutieTest is Test {
         vm.startPrank(owner);
         cutie.withdraw();
         assertEq(owner.balance, 0.01 ether);
+    }
+
+    // 7. You can mint one token provided the correct amount of ETH. 10 points
+    function testMintSingle() public {
+        vm.startPrank(alice);
+        vm.deal(alice, 1 ether);
+        cutie.safeMint{value: 0.01 ether}(1);
+        vm.stopPrank();
+        assertEq(cutie.balanceOf(alice), 1);
+    }
+
+    // 8. You can mint three tokens in a single transaction provided the correct amount of ETH. 10 points
+    function testMintMultiple() public {
+        vm.startPrank(alice);
+        vm.deal(alice, 1 ether);
+        cutie.safeMint{value: 0.03 ether}(3);
+        vm.stopPrank();
+        assertEq(cutie.balanceOf(alice), 3);
+    }
+
+    // 9. Check the balance of an account that minted three tokens (use multiple accounts to make it easy to understand and readable). 10 points
+    function testCheckPostMintBalance() public {
+        vm.startPrank(alice);
+        vm.deal(alice, 1 ether);
+        cutie.safeMint{value: 0.03 ether}(3);
+        vm.stopPrank();
+        assertEq(cutie.balanceOf(alice), 3);
+        assertLt(address(alice).balance, 1 ether);
     }
 }
