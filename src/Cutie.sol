@@ -18,9 +18,12 @@ contract Cutie is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     // Define naximum supply, mint price and maximum mint per transactions of NFT
     uint256 public constant MAX_SUPPLY = 100;
     uint public constant mintPrice = 0.01 ether;
-    uint maxPerTransaction = 5;
+    bool public deployed = false;
+    uint constant maxPerTransaction = 5;
 
-    constructor() ERC721("Cutie", "CUTE") {}
+    constructor() ERC721("Cutie", "CUTE") {
+        deployed = true;
+    }
 
     function safeMint(uint256 mintAmount) public payable {
         require(mintAmount > 0, "Must mint at least 1");

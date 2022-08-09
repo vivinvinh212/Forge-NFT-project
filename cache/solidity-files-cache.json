@@ -876,8 +876,8 @@
       }
     },
     "src/Cutie.sol": {
-      "lastModificationDate": 1660039004997,
-      "contentHash": "c136fe090c7f26422fe34b5a5a8d398e",
+      "lastModificationDate": 1660044718062,
+      "contentHash": "a8fb11b285c7d0512aea260d07d9f739",
       "sourceName": "src/Cutie.sol",
       "solcConfig": {
         "settings": {
@@ -929,8 +929,8 @@
       }
     },
     "test/Cutie.t.sol": {
-      "lastModificationDate": 1660043664900,
-      "contentHash": "1d3fa825d977560dcd25171de20466da",
+      "lastModificationDate": 1660044723559,
+      "contentHash": "7791af85a65cdedbdb596f69baa80882",
       "sourceName": "test/Cutie.t.sol",
       "solcConfig": {
         "settings": {

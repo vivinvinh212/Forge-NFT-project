@@ -17,8 +17,14 @@ contract CutieTest is Test {
     }
 
     // 1. The contract is deployed successfully. 5 points
+    function testDeployed() public {
+        assertEq(cutie.deployed(), true);
+    }
 
     // 2. The deployed address is set to the owner. 5 points
+    function testOwner() public {
+        assertEq(cutie.owner(), owner);
+    }
 
     // 3. No more than 100 tokens can be minted. 10 points
     function testFailExceedMaxSupply() public {
