@@ -15,8 +15,10 @@ import "../lib/openzeppelin-contracts/contracts/access/Ownable.sol";
 contract Cutie is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
 
+    //NFT id counter
     Counters.Counter private _tokenIdCounter;
 
+    //Meta-data uri
     string constant TOKEN_URI =
         "ipfs://QmZvBFsTFhfR75bEVitGVHcqCCkR5WgYmgHVNihH5nmejN";
 
@@ -35,6 +37,10 @@ contract Cutie is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         deployed = true;
     }
 
+    /**
+     * @notice Function to safely mint up to 5 Cutie NFT token in a transaction
+     * @param mintAmount Number of NFT mint during the transaction
+     */
     function safeMint(uint256 mintAmount) public payable {
         require(mintAmount > 0, "Must mint at least 1");
         require(
@@ -55,6 +61,9 @@ contract Cutie is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         }
     }
 
+    /**
+     * @notice Send funds in the contract to owner wallet
+     */
     function withdraw() public payable onlyOwner {
         uint256 balance = address(this).balance;
         require(balance > 0, "Not enough balance");
