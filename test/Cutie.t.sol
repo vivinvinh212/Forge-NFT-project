@@ -17,6 +17,36 @@ contract CutieTest is Test {
     }
 
     function testMaxSupply() public {
-        assertEq(Cutie.MAX_SUPPLY(), 100);
+        assertEq(cutie.MAX_SUPPLY(), 100);
+    }
+
+    function testMint() public {
+        vm.startPrank(alice);
+        vm.deal(alice, 1 ether);
+        cutie.safeMint{value: 0.01 ether}(1);
+        vm.stopPrank();
+        assertEq(cutie.balanceOf(alice), 1);
+    }
+
+    //test for unsuccesfull mint due to insuffucient funds//
+    function testFailMint() public {
+        vm.startPrank(bob);
+        vm.deal(bob, 0.005 ether);
+        cutie.safeMint{value: 0.01 ether}(1);
+        vm.stopPrank();
+        assertEq(cutie.balanceOf(bob), 1);
+    }
+
+    function testWithdrawFromOwner() public {
+        // switch to a diffent acount and mint a nft to have funds in contrat//
+        vm.startPrank(bob);
+        vm.deal(bob, 1 ether);
+        cutie.safeMint{value: 0.01 ether}(1);
+        assertEq(cutie.balanceOf(bob), 1);
+        vm.stopPrank();
+        //call withdraw with owner address//
+        vm.startPrank(owner);
+        cutie.withdraw();
+        assertEq(owner.balance, 0.01 ether);
     }
 }
