@@ -12,12 +12,12 @@ contract Cutie is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
 
     Counters.Counter private _tokenIdCounter;
 
-    string public constant TOKEN_URI =
+    string constant TOKEN_URI =
         "ipfs://QmZvBFsTFhfR75bEVitGVHcqCCkR5WgYmgHVNihH5nmejN";
 
     // Define naximum supply, mint price and maximum mint per transactions of NFT
-    uint256 MAX_SUPPLY = 100;
-    uint mintPrice = 0.01 ether;
+    uint256 public constant MAX_SUPPLY = 100;
+    uint public constant mintPrice = 0.01 ether;
     uint maxPerTransaction = 5;
 
     constructor() ERC721("Cutie", "CUTE") {}
