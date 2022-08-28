@@ -106,3 +106,9 @@ contract Cutie is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         return super.supportsInterface(interfaceId);
     }
 }
+
+// contract TestCutie is Cutie {
+//     function echidna_mint() public view returns (bool) {
+//         return balances[msg.sender] <= 1000;
+//     }
+// }
